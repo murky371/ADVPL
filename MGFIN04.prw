@@ -49,7 +49,7 @@ description
 @return oModel
 /*/
 Static Function ModelDef()
-//Declaro o meu modelo de dados sem passar blocos de validação pois usaremos a validação padrão do MVC
+//Declaro o meu modelo de dados sem passar blocos de validaÃ§Ã£o pois usaremos a validaÃ§Ã£o padrÃ£o do MVC
 	Local oPaiZA5      := FwFormStruct(1,"ZA5") //Master
 	Local oFilhoZA6    := FwFormStruct(1,"ZA6") //Detalhe
 
@@ -58,14 +58,14 @@ Static Function ModelDef()
 
 //Crio as estruturas das tabelas PAI(SZ5) e FILHO(SZ6)
 
-//Crio Modelos de dados Cabeçalho e Item
+//Crio Modelos de dados CabeÃ§alho e Item
 	oModel:AddFields('ZA5MASTER', /*cOwner*/, oPaiZA5, /*bPreValidacao*/, /*bPosValidacao*/, /*bCarga*/ )
 
-//ESSAS vírgulas em branco, são blocos de validação que não vamos usar
+//ESSAS vÃ­rgulas em branco, sÃ£o blocos de validaÃ§Ã£o que nÃ£o vamos usar
 	oModel:AddGrid("ZA6DETAIL","ZA5MASTER",oFilhoZA6,,,,,)
 
-//O meu grid, irá se relacionar com o cabeçalho, através dos campos FILIAL e CODIGO DE Pedido e CFOP
-	oModel:SetRelation("ZA6DETAIL",{{"ZA6_FILIAL","xFILIAL('ZA6')","ZA6_COD","ZA6_CFOP"}/*, {"ZA6_CDIAG", "ZA5_CDIAG"}*/},ZA6->(IndexKey(1)))
+//O meu grid, irÃ¡ se relacionar com o cabeÃ§alho, atravÃ©s dos campos FILIAL e CODIGO DE Pedido e CFOP
+	oModel:SetRelation("ZA6DETAIL",{{"ZA6_FILIAL","xFILIAL('ZA6')","ZA6_COD","ZA5_COD"}/*, {"ZA6_CDIAG", "ZA5_CDIAG"}*/},ZA6->(IndexKey(1)))
 
 // Adiciona a chave primaria da tabela principal
 	oModel:SetPrimarykey({"ZA5_FILIAL","ZA5_COD"})
@@ -75,10 +75,10 @@ Static Function ModelDef()
 // Adiciona a descricao do Modelo de Dados
 	oModel:SetDescription("Tipo operacao e CFOP Operacao")
 
-// Adiciona a descri��o dos Componentes do Modelo de Dados
-	oModel:GetModel("ZA5MASTER"):SetDescription("Tipo Opera�ao")
+// Adiciona a descrição dos Componentes do Modelo de Dados
+	oModel:GetModel("ZA5MASTER"):SetDescription("Tipo Operaçao")
 
-// Adiciona a descri��o dos Componentes do Modelo de Dados
+// Adiciona a descrição dos Componentes do Modelo de Dados
 	oModel:GetModel("ZA6DETAIL"):SetDescription("CFOP Operacao")
 
 
@@ -96,7 +96,7 @@ description
 Static Function ViewDef()
 	Local oView
 
-//Invoco o Model da função que quero
+//Invoco o Model da funÃ§Ã£o que quero
 	Local oModel    := FwLoadModel("MGFIN04")
 
 	Local oPaiZA5      := FwFormStruct(2,"ZA5")
@@ -104,20 +104,20 @@ Static Function ViewDef()
 // Local oFilhoZB3    := FwFormStruct(2,"ZB3") //Detalhe
 
 
-//Faço a instancia da função FwFormView para a variável oView
+//FaÃ§o a instancia da funÃ§Ã£o FwFormView para a variÃ¡vel oView
 	oView   := FwFormView():New()
 
 	oView:SetModel(oModel)
 
-//Crio as views/visões/layout de cabeçalho e item, com as estruturas de dados criadas acima
+//Crio as views/visÃµes/layout de cabeÃ§alho e item, com as estruturas de dados criadas acima
 	oView:AddField("VIEWZA5",oPaiZA5,"ZA5MASTER")
 	oView:AddGrid("VIEWZA6",oFilhoZA6,"ZA6DETAIL")
 
-//Faço o campo de Item ficar incremental
+//FaÃ§o o campo de Item ficar incremental
 // oView:AddIncrementField("ZA6DETAIL","ZA6_CDIAG") //Soma 1 ao campo de Item
 
-//Criamos os BOX horizontais para CABEÇALHO E ITENS
-	oView:CreateHorizontalBox("CABEC",30) //70% do tamanho para cabeçalho
+//Criamos os BOX horizontais para CABEÃ‡ALHO E ITENS
+	oView:CreateHorizontalBox("CABEC",30) //70% do tamanho para cabeÃ§alho
 	oView:CreateHorizontalBox("GRID1",70)  //30% para itens
 
 
@@ -126,7 +126,7 @@ Static Function ViewDef()
 	oView:SetOwnerView("VIEWZA6","GRID1")
 
 
-//Darei títulos personalizados ao cabeçalho e comentários do Pedido
+//Darei tÃ­tulos personalizados ao cabeÃ§alho e comentÃ¡rios do Pedido
 	oView:EnableTitleView("VIEWZA5","Tipo Operacao")
 	oView:EnableTitleView("VIEWZA6","CFOP Operacao")
 
